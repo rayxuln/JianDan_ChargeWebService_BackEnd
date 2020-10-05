@@ -9,6 +9,7 @@ var login = require('./api/login')
 var check_token = require('./api/check_token')
 var get_user_info = require('./api/get_user_info')
 var logout = require('./api/logout')
+var get_dept_name = require('./api/get_dept_name')
 
 let app = express();
 
@@ -48,6 +49,10 @@ app.get("/api/get_user_info", get_user_info)
 
 // api/logout?token=
 app.get("/api/logout", logout)
+
+// api/get_dept_name?token=
+// 获取token所对应的员工所在的部门的名称
+app.get("/api/get_dept_name", get_dept_name)
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)
