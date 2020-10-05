@@ -10,7 +10,11 @@ var handler = function(req, res){
     {
         result.code = 0
         result.msg = 'ok'
-        result.data.info = user.staff_info
+        result.data.info = {
+            ...user.staff_info,
+            staff_id: user.user
+        }
+
     }else{
         result.code = -1
         result.msg = 'invalid token!'

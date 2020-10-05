@@ -8,6 +8,7 @@ var history = require('connect-history-api-fallback');
 var login = require('./api/login')
 var check_token = require('./api/check_token')
 var get_user_info = require('./api/get_user_info')
+var logout = require('./api/logout')
 
 let app = express();
 
@@ -37,7 +38,6 @@ app.use(express.static('../web_project2/web_demo1/dist'));
 // 记录登陆成功的token，设置过期时间为1个小时
 app.get('/api/login', login)
 
-
 // api/check_token?token=
 // 返回: {code:0, msg:'ok', data: {valid:false/true}}
 app.get("/api/check_token", check_token)
@@ -45,6 +45,9 @@ app.get("/api/check_token", check_token)
 // api/get_user_info?token=
 // 返回: {code:0, msg:'ok', data: {user_info:{} }}
 app.get("/api/get_user_info", get_user_info)
+
+// api/logout?token=
+app.get("/api/logout", logout)
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)
