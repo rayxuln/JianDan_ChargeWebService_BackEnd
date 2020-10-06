@@ -7,7 +7,8 @@ var depts = [
       manager_id: 'admin',
       phone: '88688886',
       staffs: [
-          'admin'
+          'admin',
+          '10086'
       ]
     }
   ]

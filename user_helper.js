@@ -86,6 +86,17 @@ var userHelper = {
     {
       let res = this.getUserByToken(t)
       return res != undefined && res != null
+    },
+    isManager(user)
+    {
+      return user.staff_info.position === '部门经理'
+    },
+    genInfoFromUser(user)
+    {
+      return {
+        ...user.staff_info,
+        staff_id: user.user
+      }
     }
   }
 

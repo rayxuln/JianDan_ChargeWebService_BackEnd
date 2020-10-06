@@ -10,6 +10,7 @@ var check_token = require('./api/check_token')
 var get_user_info = require('./api/get_user_info')
 var logout = require('./api/logout')
 var get_dept_name = require('./api/get_dept_name')
+var get_dept_staffs = require('./api/get_dept_staffs')
 
 let app = express();
 
@@ -53,6 +54,11 @@ app.get("/api/logout", logout)
 // api/get_dept_name?token=
 // 获取token所对应的员工所在的部门的名称
 app.get("/api/get_dept_name", get_dept_name)
+
+// api/get_dept_staffs?token=
+// 获取token所对应员工所在的部门的所有员工信息
+// 将会检验token的权限
+app.get("/api/get_dept_staffs", get_dept_staffs)
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)
