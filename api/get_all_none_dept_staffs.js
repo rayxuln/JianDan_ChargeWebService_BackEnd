@@ -17,21 +17,15 @@ var handler = function(req, res){
 
             result.data.staffs = []
 
-            let dept = deptHelper.getDeptById(user.staff_info.dept_id)
-            if(dept != null)
+            for(let staff of userHelper.getUsers())
             {
-                let staff_ids = userHelper.getUsersByDeptID(dept.dept_id)
-                for(let s_id of staff_ids)
+                if(staff.staff_info.dept_id < 0)
                 {
-                    let s = userHelper.getUser(s_id)
-                    if(s != null)
-                    {
-                        result.data.staffs.push(userHelper.genInfoFromUser(s))
-                    }
+                    result.data.staffs.push({
+                        staff_id: staff.user,
+                        name: staff.staff_info.name
+                    })
                 }
-            }else{
-                result.code = -3
-                result.msg = '非法部门'
             }
 
         }else{

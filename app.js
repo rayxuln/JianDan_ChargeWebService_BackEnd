@@ -13,6 +13,11 @@ var get_dept_name = require('./api/get_dept_name')
 var get_dept_staffs = require('./api/get_dept_staffs')
 var change_staff_info = require('./api/change_staff_info')
 var remove_staff = require('./api/remove_staff')
+var get_all_none_dept_staffs = require('./api/get_all_none_dept_staffs')
+var get_staff_info = require('./api/get_staff_info')
+var validate_new_staff_id = require('./api/validate_new_staff_id')
+var add_new_staff = require('./api/add_new_staff')
+var change_staff_dept = require('./api/change_staff_dept')
 
 let app = express();
 
@@ -74,6 +79,28 @@ app.post("/api/change_staff_info", change_staff_info)
 // 将员工从原部门移除
 // 此操作不会删除员工的数据
 app.post("/api/remove_staff", remove_staff)
+
+// api/get_all_none_dept_staffs?token=
+// 获取无部门的员工
+// 返回员工的id和名字列表
+app.get("/api/get_all_none_dept_staffs", get_all_none_dept_staffs)
+
+// api/get_staff_info?token=&staff_id=
+// 获取员工的详细信息
+app.get("/api/get_staff_info", get_staff_info)
+
+// api/validate_new_staff_id?token=&staff_id=
+// 检测新的员工号是否合法
+app.get("/api/validate_new_staff_id", validate_new_staff_id)
+
+// api/add_new_staff?token=
+// 添加新员工，其部门属于操作员所在部门，职务为收费员工
+// 详细信息包含在body中
+app.post("/api/add_new_staff", add_new_staff)
+
+// api/change_staff_dept?token=&staff_id=
+// 修改员工所在的部门到操作员所在部门
+app.get("/api/change_staff_dept", change_staff_dept)
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)

@@ -6,10 +6,6 @@ var depts = [
       name: "收费部门",
       manager_id: 'admin',
       phone: '88688886',
-      staffs: [
-          'admin',
-          '10086'
-      ]
     }
   ]
 

@@ -97,6 +97,22 @@ var userHelper = {
         ...user.staff_info,
         staff_id: user.user
       }
+    },
+    addUser(user)
+    {
+      users.push(user)
+    },
+    getUsersByDeptID(dept_id)
+    {
+      let res = []
+      for(let user of users)
+      {
+        if(user.staff_info.dept_id === dept_id)
+        {
+          res.push(user.user)
+        }
+      }
+      return res
     }
   }
 
