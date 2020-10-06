@@ -45,7 +45,7 @@ var users = [
             gender: "女",
             phone: "13812345x78",
             address: "虎坊桥一路32号",
-            dept_id: 1,
+            dept_id: -1,
             position: "收费员工"
       }
     }

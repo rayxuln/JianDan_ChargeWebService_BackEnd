@@ -12,6 +12,7 @@ var logout = require('./api/logout')
 var get_dept_name = require('./api/get_dept_name')
 var get_dept_staffs = require('./api/get_dept_staffs')
 var change_staff_info = require('./api/change_staff_info')
+var remove_staff = require('./api/remove_staff')
 
 let app = express();
 
@@ -68,6 +69,11 @@ app.get("/api/get_dept_staffs", get_dept_staffs)
 // 修改员工信息
 // 修改后的数据包含在请求的body中
 app.post("/api/change_staff_info", change_staff_info)
+
+// api/remove_staff?token=
+// 将员工从原部门移除
+// 此操作不会删除员工的数据
+app.post("/api/remove_staff", remove_staff)
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)

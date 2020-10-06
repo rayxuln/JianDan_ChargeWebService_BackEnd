@@ -16,19 +16,32 @@ var handler = function(req, res){
             let staff = userHelper.getUser(body.staff_id)
             if(staff != null)
             {
-                if(staff.staff_info.dept_id === operator.staff_info.dept_id)
+                if(staff.user !== operator.user)
                 {
-                    if(body.name != undefined) staff.staff_info.name = body.name
-                    if(body.gender != undefined) staff.staff_info.gender = body.gender
-                    if(body.phone != undefined) staff.staff_info.phone = body.phone
-                    if(body.birthday != undefined) staff.staff_info.birthday = body.birthday
-                    if(body.address != undefined) staff.staff_info.address = body.address
+                    let dept = deptHelper.getDeptById(operator.staff_info.dept_id)
 
-                    result.code = 0
-                    result.msg = 'ok'
+                    if(dept != null)
+                    {
+                        let new_staffs = []
+                        for(let s_id of dept.staffs)
+                        {
+                            if(s_id === staff.user) continue
+                            new_staffs.push(s_id)
+                        }
+                        dept.staffs = new_staffs
+                        // console.log("remove " + staff.user + ", and remains " + dept.staffs)
+
+                        staff.staff_info.dept_id = -1
+
+                        result.code = 0
+                        result.msg = 'ok'
+                    }else{
+                        result.code = -5
+                        result.msg = '非法部门'
+                    }
                 }else{
                     result.code = -4
-                    result.msg = '非本部门员工！'
+                    result.msg = '你不能移除自己！'
                 }
             }else{
                 result.code = -3
