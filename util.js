@@ -14,7 +14,12 @@ const genRandomToken = function() {
 
 let Util = {
     genResultMsg,
-    genRandomToken
+    genRandomToken,
+    // 2020-9-13
+    getCurrentDateString(){
+      let d = new Date()
+      return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate()
+    }
 }
 
 module.exports = Util

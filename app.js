@@ -18,6 +18,7 @@ var get_staff_info = require('./api/get_staff_info')
 var validate_new_staff_id = require('./api/validate_new_staff_id')
 var add_new_staff = require('./api/add_new_staff')
 var change_staff_dept = require('./api/change_staff_dept')
+var get_houses_info = require('./api/get_houses_info')
 
 let app = express();
 
@@ -101,6 +102,10 @@ app.post("/api/add_new_staff", add_new_staff)
 // api/change_staff_dept?token=&staff_id=
 // 修改员工所在的部门到操作员所在部门
 app.get("/api/change_staff_dept", change_staff_dept)
+
+// api/get_houses_info?token=
+// 获取所有房子的信息: id，业主
+app.get("/api/get_houses_info", get_houses_info)
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)
