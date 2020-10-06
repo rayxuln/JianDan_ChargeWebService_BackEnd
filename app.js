@@ -3,7 +3,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 let express = require("express");
-var history = require('connect-history-api-fallback');
+var history = require('connect-history-api-fallback')
 
 var login = require('./api/login')
 var check_token = require('./api/check_token')
@@ -11,8 +11,12 @@ var get_user_info = require('./api/get_user_info')
 var logout = require('./api/logout')
 var get_dept_name = require('./api/get_dept_name')
 var get_dept_staffs = require('./api/get_dept_staffs')
+var change_staff_info = require('./api/change_staff_info')
 
 let app = express();
+
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 
 app.use(history({
   disableDotRule: false,
@@ -59,6 +63,11 @@ app.get("/api/get_dept_name", get_dept_name)
 // 获取token所对应员工所在的部门的所有员工信息
 // 将会检验token的权限
 app.get("/api/get_dept_staffs", get_dept_staffs)
+
+// api/change_staff_info?token=
+// 修改员工信息
+// 修改后的数据包含在请求的body中
+app.post("/api/change_staff_info", change_staff_info)
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)
