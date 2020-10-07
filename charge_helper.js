@@ -46,6 +46,47 @@ var chargesHelper = {
     },
     addCharge(charge){
         charges.push(charge)
+    },
+    getChargesWithFilters(filter){
+        let result = []
+        for(let i=0; i<charges.length; ++i)
+        {
+            let charge = charges[i]
+            // console.log("charge " + JSON.stringify(charge) + " filter " + JSON.stringify(filter) + " i: " + i)
+            if(filter == undefined)
+            {
+                result.push(charge)
+                continue
+            }
+
+            let is_this_charge_valid = true
+            for(let k in charge)
+            {
+                let c_v = charge[k]
+                let f_v = filter[k]
+                if(f_v == undefined || f_v == '')
+                {
+                    continue
+                }
+
+                // 判断c_v是否符合正则表达式f_v
+                c_v = '' + c_v
+                f_v = '' + f_v
+                f_v = new RegExp(f_v)
+                // console.log("test " + c_v + " with " + f_v + " key: " + k)
+                if(!f_v.test(c_v))
+                {
+                    is_this_charge_valid = false
+                    break
+                }
+            }
+
+            if(is_this_charge_valid)
+            {
+                result.push(charge)
+            }
+        }
+        return result
     }
 }
 

@@ -20,7 +20,7 @@ var houseHelper = {
     getHouse(house_id){
         for(let house of houses)
         {
-            if(house.house_id === house_id)
+            if(house.house_id == house_id)
             {
                 return house
             }

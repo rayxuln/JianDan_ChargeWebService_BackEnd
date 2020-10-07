@@ -17,7 +17,8 @@ var houseOwnerHelper = {
     {
         for(let owner of house_owners)
         {
-            if(owner.owner_id === owner_id)
+            // console.log('compare ' + owner.owner_id + ' | ' + owner_id)
+            if(owner.owner_id == owner_id)
             {
                 return owner
             }
