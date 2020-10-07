@@ -19,6 +19,7 @@ var validate_new_staff_id = require('./api/validate_new_staff_id')
 var add_new_staff = require('./api/add_new_staff')
 var change_staff_dept = require('./api/change_staff_dept')
 var get_houses_info = require('./api/get_houses_info')
+var charge = require('./api/charge')
 
 let app = express();
 
@@ -106,6 +107,11 @@ app.get("/api/change_staff_dept", change_staff_dept)
 // api/get_houses_info?token=
 // 获取所有房子的信息: id，业主
 app.get("/api/get_houses_info", get_houses_info)
+
+// api/charge?token=
+// 收费，记录收费信息，返回收费单
+// 数据储存在body中
+app.post("/api/charge", charge)
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)

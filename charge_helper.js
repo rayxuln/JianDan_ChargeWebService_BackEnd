@@ -34,7 +34,7 @@ var chargesHelper = {
         return {
             charge_id: charge_cnt++,
             house_id,
-            charge: chargeStandas[type] * number,
+            charge: Math.round((chargeStandas[type] * number) * 100.0) / 100.0,
             owner_id: houseHelper.getHouseOwnerID(house_id),
             date: util.getCurrentDateString(),
             staff_id,
