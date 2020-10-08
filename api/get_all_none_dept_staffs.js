@@ -1,6 +1,5 @@
 var util = require('../util')
 var userHelper = require('../user_helper')
-var deptHelper = require('../dept_helper')
 
 var handler = async function(req, res){
     let token = req.query.token

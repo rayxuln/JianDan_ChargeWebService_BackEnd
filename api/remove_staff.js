@@ -22,15 +22,6 @@ var handler = async function(req, res){
 
                     if(dept != null)
                     {
-                        // let new_staffs = []
-                        // for(let s_id of dept.staffs)
-                        // {
-                        //     if(s_id === staff.user) continue
-                        //     new_staffs.push(s_id)
-                        // }
-                        // dept.staffs = new_staffs
-                        // console.log("remove " + staff.user + ", and remains " + dept.staffs)
-
                         staff.dept_id = null
 
                         userHelper.updateUser(staff)

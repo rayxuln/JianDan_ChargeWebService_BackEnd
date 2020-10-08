@@ -3,21 +3,6 @@ var houseHelper = require('./house_helper')
 
 var charge_cnt = 0
 
-//var charges = [
-    // {
-    //     charge_id: 0,
-    //     house_id: 0,
-        // charge: 10.00,
-        // owner_id: 0,
-        // date: '2020-9-15',
-        // staff_id: '10086',
-        // type: '电费',
-        // number: '102',
-        // charge_ym_start: '2020-2',
-        // charge_ym_end: '2020-3'     //缴纳月份的起止日期
-    // },
-//]
-
 var chargeStandas = {
     '物业费': 1.00, //平方米
     '电梯费': 5.00, //层
@@ -45,7 +30,6 @@ var chargesHelper = {
         }
     },
     addCharge(charge){
-        //charges.push(charge)
         // console.log(JSON.stringify(charge))
         return util.mysql_query("insert into charge(house_id, charge, owner_id, date, staff_id, type, number, charge_ym_start, charge_ym_end) values(?,?,?,?,?,?,?,?,?)", [charge.house_id,charge.charge,charge.owner_id,charge.date,charge.staff_id,charge.type,charge.number,charge.charge_ym_start,charge.charge_ym_end])
     },

@@ -1,18 +1,5 @@
 var util = require('./util')
 
-//var houses = [
-//    {
-//        house_id: 0,
-//        area: 120.00,
-//        owner_id: 0,
-//    },
-//    {
-//        house_id: 1,
-//        area: 3620.00,
-//        owner_id: 0,
-//    }
-//]
-
 var houseHelper = {
     getHouses(){
         return util.mysql_query("select * from house")

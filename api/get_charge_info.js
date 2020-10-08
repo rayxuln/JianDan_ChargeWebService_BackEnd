@@ -1,7 +1,5 @@
 var util = require('../util')
 var userHelper = require('../user_helper')
-var houseHelper = require('../house_helper')
-var houseOwnerHelper = require('../house_owner_helper')
 var chargeHelper = require('../charge_helper')
 
 var handler = async function(req, res){

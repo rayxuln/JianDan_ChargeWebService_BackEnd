@@ -1,59 +1,7 @@
 var util = require('./util')
-const { resolve } = require('path')
-
-// var users = [
-//     {
-//       user: "admin",
-//       pwd: "123456",
-//       tokens: [
-//         //{token:"", expire:60*60*1000}
-//       ],
-//       staff_info: {
-//             name: "杰克",
-//             birthday: "2009-06",
-//             gender: "男",
-//             phone: "13812345678",
-//             address: "北纬一路32号",
-//             dept_id: 0,
-//             position: "部门经理"
-//       }
-//     },
-//     {
-//       user: "10086",
-//       pwd: "10086",
-//       tokens: [
-//         //{token:"", expire:60*60*1000}
-//       ],
-//       staff_info: {
-//             name: "马男",
-//             birthday: "2007-02",
-//             gender: "男",
-//             phone: "1381234xxx8",
-//             address: "北纬一路31号",
-//             dept_id: 0,
-//             position: "收费员工"
-//       }
-//     },
-//     {
-//       user: "10087",
-//       pwd: "10087",
-//       tokens: [
-//         //{token:"", expire:60*60*1000}
-//       ],
-//       staff_info: {
-//             name: "波本",
-//             birthday: "2019-06",
-//             gender: "女",
-//             phone: "13812345x78",
-//             address: "虎坊桥一路32号",
-//             dept_id: -1,
-//             position: "收费员工"
-//       }
-//     }
-//   ]
 
 var users_tokens = {
-  //'user': []
+  //'user': [{token:, expire:}]
 }
 
 var userHelper = {
@@ -115,7 +63,6 @@ var userHelper = {
     },
     addUser(user)
     {
-      //users.push(user)
       return new Promise(resolve => {
         util.mysql_query("insert into user values(?,?,?,?,?,?,?,?,?)", [
           user.staff_id,

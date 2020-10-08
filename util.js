@@ -68,9 +68,4 @@ let Util = {
     }
 }
 
-// async function f1(){
-//   console.log(await Util.mysql_query('select * from test1 where id=?', [0]))
-// }
-// f1()
-
 module.exports = Util
