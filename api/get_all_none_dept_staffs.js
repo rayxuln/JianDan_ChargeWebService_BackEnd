@@ -2,7 +2,7 @@ var util = require('../util')
 var userHelper = require('../user_helper')
 var deptHelper = require('../dept_helper')
 
-var handler = function(req, res){
+var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
@@ -17,9 +17,11 @@ var handler = function(req, res){
 
             result.data.staffs = []
 
-            for(let staff of userHelper.getUsers())
+            let users = await userHelper.getUsers()
+
+            for(let staff of users)
             {
-                if(staff.staff_info.dept_id < 0)
+                if(staff.staff_info.dept_id == null)
                 {
                     result.data.staffs.push({
                         staff_id: staff.user,

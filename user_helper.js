@@ -1,4 +1,5 @@
 var util = require('./util')
+const { resolve } = require('path')
 
 var users = [
     {
@@ -49,11 +50,48 @@ var users = [
             position: "收费员工"
       }
     }
-  ]
+  ],
+
+var users_tokens = {
+  //'user': []
+}
 
 var userHelper = {
+    rawUserDataToFormal(raw_user){
+      return {
+        user: raw_user.staff_id,
+        pwd: raw_user.pwd,
+        tokens: [],
+        staff_info: {
+          name: raw_user.name,
+          birthday: raw_user.birthday,
+          gender: raw_user.gender,
+          phone: raw_user.phone,
+          address: raw_user.address,
+          dept_id: raw_user.dept_id,
+          position: raw_user.position,
+        }
+      }
+    },
     getUsers(){
-        return users
+      return new Promise(resolve => {
+        util.mysql_query("select * from user").then(res => {
+          let raw_users = Array.from(res)
+          let new_users = []
+          for(let ru of raw_users)
+          {
+            let user = this.rawUserDataToFormal(ru)
+            let old_user = this.getUser(user.user)
+            if(old_user != null)
+            {
+              user.tokens = old_user.tokens
+            }
+            new_users.push(user)
+          }
+          users = new_users
+          resolve(users)
+        })
+      })
     },
     getUser(user_name){
       for(let user of users){

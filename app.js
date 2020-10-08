@@ -4,6 +4,7 @@ const port = 3000;
 
 let express = require("express");
 var history = require('connect-history-api-fallback')
+const util = require('./util')
 
 var login = require('./api/login')
 var check_token = require('./api/check_token')
@@ -22,7 +23,8 @@ var get_houses_info = require('./api/get_houses_info')
 var charge = require('./api/charge')
 var get_charge_info = require('./api/get_charge_info')
 var get_house_owner_name = require('./api/get_house_owner_name')
-var get_staff_name = require('./api/get_staff_name')
+var get_staff_name = require('./api/get_staff_name');
+const userHelper = require("./user_helper");
 
 let app = express();
 
@@ -128,6 +130,7 @@ app.get("/api/get_house_owner_name", get_house_owner_name)
 // api/get_staff_name?token=&staff_id=
 // 根据员工号获取员工的姓名
 app.get("/api/get_staff_name", get_staff_name)
+
 
 app.listen(port, ()=>{
   console.log(`Server running at http://${hostname}:${port}/`)

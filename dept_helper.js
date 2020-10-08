@@ -1,4 +1,5 @@
 var util = require('./util')
+const { resolve } = require('path')
 
 var depts = [
     {
@@ -12,18 +13,21 @@ var depts = [
 
 
 var deptHelper = {
-    getDepts(){
-        return depts
-    },
+    // getDepts(){
+    //     return depts
+    // },
     getDeptById(dept_id){
-        for(let dept of depts)
-        {
-            if(dept.dept_id === dept_id)
-            {
-                return dept
-            }
-        }
-        return null
+      return new Promise(resolve => {
+        util.mysql_query('select * from dept where dept_id=?', [dept_id]).then(res => {
+          if(res.length <= 0)
+          {
+            resolve(null)
+            return
+          }
+          res = res[0]
+          resolve({dept_id:res.dept_id, name:res.name, phone:res.phone})
+        })
+      })
     }
   }
 

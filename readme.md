@@ -5,6 +5,7 @@
 
 # 运行
 ```bash
+npm install
 node app.js
 ```
 

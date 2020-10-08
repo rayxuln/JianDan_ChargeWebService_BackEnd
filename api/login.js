@@ -7,12 +7,13 @@ var login_error_max_count = 10
 var login_error_count_reset_time = 10 //s
 
 // 查询token是否过期
-setInterval(function() {
-  for(user of userHelper.getUsers())
+setInterval(async function() {
+  let users = await userHelper.getUsers()
+  for(user of users)
   {
     for(token of user.tokens)
     {
-      token.expire -= 1000
+      token.expire -= 5000
     }
 
     // 删除过期的token
@@ -26,7 +27,7 @@ setInterval(function() {
     }
     user.tokens = new_tokens
   }
-}, 1000)
+}, 5000)
 
 var handler = function(req, res){
     let user_name = req.query.user

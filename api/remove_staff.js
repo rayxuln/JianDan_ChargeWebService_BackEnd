@@ -2,7 +2,7 @@ var util = require('../util')
 var userHelper = require('../user_helper')
 var deptHelper = require('../dept_helper')
 
-var handler = function(req, res){
+var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
@@ -18,7 +18,7 @@ var handler = function(req, res){
             {
                 if(staff.user !== operator.user)
                 {
-                    let dept = deptHelper.getDeptById(operator.staff_info.dept_id)
+                    let dept = await deptHelper.getDeptById(operator.staff_info.dept_id)
 
                     if(dept != null)
                     {

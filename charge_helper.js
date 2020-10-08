@@ -7,14 +7,14 @@ var charges = [
     // {
     //     charge_id: 0,
     //     house_id: 0,
-            // charge: 10.00,
-            // owner_id: 0,
-            // date: '2020-9-15',
-            // staff_id: '10086',
-            // type: '电费',
-            // number: '102',
-            // charge_ym_start: '2020-2',
-            // charge_ym_end: '2020-3'     //缴纳月份的起止日期
+        // charge: 10.00,
+        // owner_id: 0,
+        // date: '2020-9-15',
+        // staff_id: '10086',
+        // type: '电费',
+        // number: '102',
+        // charge_ym_start: '2020-2',
+        // charge_ym_end: '2020-3'     //缴纳月份的起止日期
     // },
 ]
 
