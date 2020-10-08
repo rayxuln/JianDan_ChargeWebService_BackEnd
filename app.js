@@ -45,17 +45,18 @@ app.use(history({
 }));
 app.use(express.static('../web_project2/web_demo1/dist'));
 
-// api/login?user=&pwd=
+// api/login
 // 返回: {code: 0, msg: 'ok', data: {token: '随机字符串'} }
 // code = 0 为调用成功
 // msg 为额外消息
 // data 为调用返回数据
+// 用户名和密码放在body中
 // 验证用户名与密码是否正确
 // 返回错误信息
 // 统计错误次数
 // 错误次数过多延迟验证10秒钟
 // 记录登陆成功的token，设置过期时间为1个小时
-app.get('/api/login', login)
+app.post('/api/login', login)
 
 // api/check_token?token=
 // 返回: {code:0, msg:'ok', data: {valid:false/true}}

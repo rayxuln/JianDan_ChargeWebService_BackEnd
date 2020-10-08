@@ -32,8 +32,8 @@ setInterval(async function() {
 }, 5000)
 
 var handler = async function(req, res){
-    let user_name = req.query.user
-    let user_password = req.query.pwd
+    let user_name = req.body.staff_id
+    let user_password = req.body.pwd
     console.log("User[" + user_name + ":" + user_password + "] wants to login!")
     //res.send("{code: 0, msg: 'ok', data: {token: '随机字符串'}")
     var result = util.genResultMsg()
@@ -52,7 +52,7 @@ var handler = async function(req, res){
         result.code = 0
         result.msg = "ok"
         result.data.token = userHelper.login(user)
-	console.log('login: '+result.data.token)
+	console.log(user_name + ' login with token: '+result.data.token)
       }else{
         result.code = -2
         result.msg = "错误的密码!"
