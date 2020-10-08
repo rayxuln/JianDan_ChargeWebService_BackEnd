@@ -1,23 +1,24 @@
 var util = require('./util')
 
-var houses = [
-    {
-        house_id: 0,
-        area: 120.00,
-        owner_id: 0,
-    },
-    {
-        house_id: 1,
-        area: 3620.00,
-        owner_id: 0,
-    }
-]
+//var houses = [
+//    {
+//        house_id: 0,
+//        area: 120.00,
+//        owner_id: 0,
+//    },
+//    {
+//        house_id: 1,
+//        area: 3620.00,
+//        owner_id: 0,
+//    }
+//]
 
 var houseHelper = {
     getHouses(){
-        return houses
+        return util.mysql_query("select * from house")
     },
-    getHouse(house_id){
+    getHouse: async function(house_id){
+        let houses = await this.getHouses()
         for(let house of houses)
         {
             if(house.house_id == house_id)
@@ -27,8 +28,8 @@ var houseHelper = {
         }
         return null
     },
-    getHouseOwnerID(house_id){
-        let house = this.getHouse(house_id)
+    getHouseOwnerID: async function(house_id){
+        let house = await this.getHouse(house_id)
         if(house != null)
         {
             return house.owner_id

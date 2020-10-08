@@ -5,20 +5,20 @@ var houseOwnerHelper = require('../house_owner_helper')
 var chargeHelper = require('../charge_helper')
 
 
-var handler = function(req, res){
+var handler = async function(req, res){
     let token = req.query.token
     let staff_id = req.query.staff_id
     var result = util.genResultMsg()
 
-    let operator = userHelper.getUserByToken(token)
+    let operator = await userHelper.getUserByToken(token)
     if(operator != null)
     {
         if(userHelper.isManager(operator))
         {
-            let staff = userHelper.getUser(staff_id)
+            let staff = await userHelper.getUser(staff_id)
             if(staff != null)
             {
-                result.data = staff.staff_info.name
+                result.data = staff.name
                 result.code = 0
                 result.msg = 'ok'
             }else{

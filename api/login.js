@@ -11,25 +11,27 @@ setInterval(async function() {
   let users = await userHelper.getUsers()
   for(user of users)
   {
-    for(token of user.tokens)
+    let user_tokens = userHelper.getUserTokens(user.staff_id)
+//	console.log("user["+user.staff_id+"] tokens:"+JSON.stringify(user_tokens))
+    for(let token of user_tokens)
     {
       token.expire -= 5000
     }
 
     // 删除过期的token
     var new_tokens = []
-    for(token of user.tokens)
+    for(let token of user_tokens)
     {
       if(token.expire > 0)
       {
         new_tokens.push(token)
       }
     }
-    user.tokens = new_tokens
+    user_tokens = new_tokens
   }
 }, 5000)
 
-var handler = function(req, res){
+var handler = async function(req, res){
     let user_name = req.query.user
     let user_password = req.query.pwd
     console.log("User[" + user_name + ":" + user_password + "] wants to login!")
@@ -42,7 +44,7 @@ var handler = function(req, res){
       res.send(JSON.stringify(result))
       return
     }
-    var user = userHelper.getUser(user_name)
+    var user = await userHelper.getUser(user_name)
     if(user != null)
     {
       if(user_password === user.pwd)
@@ -50,6 +52,7 @@ var handler = function(req, res){
         result.code = 0
         result.msg = "ok"
         result.data.token = userHelper.login(user)
+	console.log('login: '+result.data.token)
       }else{
         result.code = -2
         result.msg = "错误的密码!"

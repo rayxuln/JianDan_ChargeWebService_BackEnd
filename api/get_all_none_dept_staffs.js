@@ -6,7 +6,7 @@ var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
-    let user = userHelper.getUserByToken(token)
+    let user = await userHelper.getUserByToken(token)
     if(user != null)
     {
         let is_manager = userHelper.isManager(user)
@@ -21,11 +21,11 @@ var handler = async function(req, res){
 
             for(let staff of users)
             {
-                if(staff.staff_info.dept_id == null)
+                if(staff.dept_id == null)
                 {
                     result.data.staffs.push({
-                        staff_id: staff.user,
-                        name: staff.staff_info.name
+                        staff_id: staff.staff_id,
+                        name: staff.name
                     })
                 }
             }

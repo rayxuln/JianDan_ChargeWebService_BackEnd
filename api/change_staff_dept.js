@@ -7,18 +7,20 @@ var handler = async function(req, res){
     let staff_id = req.query.staff_id
     var result = util.genResultMsg()
 
-    let operator = userHelper.getUserByToken(token)
+    let operator = await userHelper.getUserByToken(token)
     if(operator != null)
     {
         if(userHelper.isManager(operator))
         {
-            let staff = userHelper.getUser(staff_id)
+            let staff = await userHelper.getUser(staff_id)
             if(staff != null)
             {
-                let dept = await deptHelper.getDeptById(operator.staff_info.dept_id)
+                let dept = await deptHelper.getDeptById(operator.dept_id)
                 if(dept != null)
                 {
-                    staff.staff_info.dept_id = dept.dept_id
+                    staff.dept_id = dept.dept_id
+
+                    await userHelper.updateUser(staff)
 
                     result.code = 0
                     result.msg = 'ok'

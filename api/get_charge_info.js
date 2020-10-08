@@ -4,18 +4,18 @@ var houseHelper = require('../house_helper')
 var houseOwnerHelper = require('../house_owner_helper')
 var chargeHelper = require('../charge_helper')
 
-var handler = function(req, res){
+var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
-    let operator = userHelper.getUserByToken(token)
+    let operator = await userHelper.getUserByToken(token)
     if(operator != null)
     {
         if(userHelper.isManager(operator))
         {
             let filter = req.body
             // console.log("filters: " + JSON.stringify(filters))
-            result.data.charges = chargeHelper.getChargesWithFilters(filter)
+            result.data.charges = await chargeHelper.getChargesWithFilters(filter)
             
             result.code = 0
             result.msg = 'ok'

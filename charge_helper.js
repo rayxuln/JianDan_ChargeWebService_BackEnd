@@ -3,7 +3,7 @@ var houseHelper = require('./house_helper')
 
 var charge_cnt = 0
 
-var charges = [
+//var charges = [
     // {
     //     charge_id: 0,
     //     house_id: 0,
@@ -16,7 +16,7 @@ var charges = [
         // charge_ym_start: '2020-2',
         // charge_ym_end: '2020-3'     //缴纳月份的起止日期
     // },
-]
+//]
 
 var chargeStandas = {
     '物业费': 1.00, //平方米
@@ -27,15 +27,15 @@ var chargeStandas = {
 
 var chargesHelper = {
     getCharges(){
-        return charges
+        return util.mysql_query("select * from charge")
     },
-    genCharge(house_id, staff_id, type, number, charge_ym_start, charge_ym_end)
+    genCharge: async function(house_id, staff_id, type, number, charge_ym_start, charge_ym_end)
     {
         return {
             charge_id: charge_cnt++,
             house_id,
             charge: Math.round((chargeStandas[type] * number) * 100.0) / 100.0,
-            owner_id: houseHelper.getHouseOwnerID(house_id),
+            owner_id: await houseHelper.getHouseOwnerID(house_id),
             date: util.getCurrentDateString(),
             staff_id,
             type,
@@ -45,9 +45,12 @@ var chargesHelper = {
         }
     },
     addCharge(charge){
-        charges.push(charge)
+        //charges.push(charge)
+        // console.log(JSON.stringify(charge))
+        return util.mysql_query("insert into charge(house_id, charge, owner_id, date, staff_id, type, number, charge_ym_start, charge_ym_end) values(?,?,?,?,?,?,?,?,?)", [charge.house_id,charge.charge,charge.owner_id,charge.date,charge.staff_id,charge.type,charge.number,charge.charge_ym_start,charge.charge_ym_end])
     },
-    getChargesWithFilters(filter){
+    getChargesWithFilters: async function(filter){
+        let charges = await this.getCharges()
         let result = []
         for(let i=0; i<charges.length; ++i)
         {

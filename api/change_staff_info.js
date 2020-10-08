@@ -2,27 +2,29 @@ var util = require('../util')
 var userHelper = require('../user_helper')
 var deptHelper = require('../dept_helper')
 
-var handler = function(req, res){
+var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
-    let operator = userHelper.getUserByToken(token)
+    let operator = await userHelper.getUserByToken(token)
     if(operator != null)
     {
         if(userHelper.isManager(operator))
         {
             let body = req.body
             
-            let staff = userHelper.getUser(body.staff_id)
+            let staff = await userHelper.getUser(body.staff_id)
             if(staff != null)
             {
-                if(staff.staff_info.dept_id === operator.staff_info.dept_id)
+                if(staff.dept_id === operator.dept_id)
                 {
-                    if(body.name != undefined) staff.staff_info.name = body.name
-                    if(body.gender != undefined) staff.staff_info.gender = body.gender
-                    if(body.phone != undefined) staff.staff_info.phone = body.phone
-                    if(body.birthday != undefined) staff.staff_info.birthday = body.birthday
-                    if(body.address != undefined) staff.staff_info.address = body.address
+                    if(body.name != undefined) staff.name = body.name
+                    if(body.gender != undefined) staff.gender = body.gender
+                    if(body.phone != undefined) staff.phone = body.phone
+                    if(body.birthday != undefined) staff.birthday = body.birthday
+                    if(body.address != undefined) staff.address = body.address
+                    
+                    await userHelper.updateUser(staff)
 
                     result.code = 0
                     result.msg = 'ok'

@@ -1,5 +1,4 @@
 var util = require('./util')
-const { resolve } = require('path')
 
 var depts = [
     {

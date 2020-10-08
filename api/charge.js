@@ -4,16 +4,16 @@ var houseHelper = require('../house_helper')
 var houseOwnerHelper = require('../house_owner_helper')
 var chargeHelper = require('../charge_helper')
 
-var handler = function(req, res){
+var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
-    let operator = userHelper.getUserByToken(token)
+    let operator = await userHelper.getUserByToken(token)
     if(operator != null)
     {
         let body = req.body
 
-        let house_owner = houseOwnerHelper.getHouseOwner(houseHelper.getHouseOwnerID(body.house_id))
+        let house_owner = await houseOwnerHelper.getHouseOwner(await houseHelper.getHouseOwnerID(body.house_id))
         
         let house_owner_name = house_owner != null ? house_owner.name : '无业主'
         let charge_date = util.getCurrentDateString()
@@ -25,8 +25,8 @@ var handler = function(req, res){
         let index = 0
         for(let c of multy_charges)
         {
-            let charge_item = chargeHelper.genCharge(body.house_id, operator.user, c.type, c.number, body.charge_ym_start, body.charge_ym_end)
-            chargeHelper.addCharge(charge_item)
+            let charge_item = await chargeHelper.genCharge(body.house_id, operator.staff_id, c.type, c.number, body.charge_ym_start, body.charge_ym_end)
+            await chargeHelper.addCharge(charge_item)
             // console.log("Add charge: " + JSON.stringify(charge_item))
             charge_sum += charge_item.charge
             charges.push({
@@ -44,7 +44,7 @@ var handler = function(req, res){
             charges,
             charge_sum: charge_sum.toFixed(2),
             charge_date,
-            staff_id: operator.user,
+            staff_id: operator.staff_id,
         }
 
         // console.log(JSON.stringify(result.data.charge_info))

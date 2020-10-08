@@ -6,19 +6,19 @@ var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
-    let operator = userHelper.getUserByToken(token)
+    let operator = await userHelper.getUserByToken(token)
     if(operator != null)
     {
         if(userHelper.isManager(operator))
         {
             let body = req.body
             
-            let staff = userHelper.getUser(body.staff_id)
+            let staff = await userHelper.getUser(body.staff_id)
             if(staff != null)
             {
-                if(staff.user !== operator.user)
+                if(staff.staff_id !== operator.staff_id)
                 {
-                    let dept = await deptHelper.getDeptById(operator.staff_info.dept_id)
+                    let dept = await deptHelper.getDeptById(operator.dept_id)
 
                     if(dept != null)
                     {
@@ -31,7 +31,9 @@ var handler = async function(req, res){
                         // dept.staffs = new_staffs
                         // console.log("remove " + staff.user + ", and remains " + dept.staffs)
 
-                        staff.staff_info.dept_id = -1
+                        staff.dept_id = null
+
+                        userHelper.updateUser(staff)
 
                         result.code = 0
                         result.msg = 'ok'

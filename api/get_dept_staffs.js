@@ -6,7 +6,7 @@ var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
-    let user = userHelper.getUserByToken(token)
+    let user = await userHelper.getUserByToken(token)
     if(user != null)
     {
         let is_manager = userHelper.isManager(user)
@@ -17,18 +17,11 @@ var handler = async function(req, res){
 
             result.data.staffs = []
 
-            let dept = await deptHelper.getDeptById(user.staff_info.dept_id)
+            let dept = await deptHelper.getDeptById(user.dept_id)
             if(dept != null)
             {
-                let staff_ids = userHelper.getUsersByDeptID(dept.dept_id)
-                for(let s_id of staff_ids)
-                {
-                    let s = userHelper.getUser(s_id)
-                    if(s != null)
-                    {
-                        result.data.staffs.push(userHelper.genInfoFromUser(s))
-                    }
-                }
+                let staffs = await userHelper.getUsersByDeptID(dept.dept_id)
+                result.data.staffs = staffs
             }else{
                 result.code = -3
                 result.msg = '非法部门'

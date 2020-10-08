@@ -6,13 +6,13 @@ var handler = async function(req, res){
     let token = req.query.token
     var result = util.genResultMsg()
 
-    let user = userHelper.getUserByToken(token)
+    let user = await userHelper.getUserByToken(token)
     if(user != null)
     {
         result.code = 0
         result.msg = 'ok'
 
-        let dept = await deptHelper.getDeptById(user.staff_info.dept_id)
+        let dept = await deptHelper.getDeptById(user.dept_id)
         if(dept != null)
         {
             result.data.dept_name = dept.name
